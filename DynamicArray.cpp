@@ -70,6 +70,10 @@ public:
 	}
 
 	void Insert(int index, int data){
+		if (index >= dataCnt){
+			return;
+		}
+
 		if (dataCnt >= leng){
 			int* temp = new int[leng + 1];
 			for (int i = 0; i < index; i++){
@@ -86,22 +90,19 @@ public:
 		}
 		else{
 
-			int* temp = new int[leng];
-			for (int i = 0; i < index; i++){
-				temp[i] = datas[i];
+			for (int i = dataCnt-1; i >= index; i--){
+				datas[i+1] = datas[i];
 			}
-			for (int i = index + 1; i < leng; i++){
-				temp[i] = datas[i - 1];
-			}
-			temp[index] = data;
-			delete[] datas;
-			datas = temp;
+			datas[index] = data;
 
 		}
 		dataCnt++;
 	}
 
 	void remove(int index){
+		if (index >= dataCnt){
+			return;
+		}
 		for (int i = index; i <leng - 1; i++){
 			datas[i] = datas[i + 1];
 		}
@@ -110,6 +111,15 @@ public:
 	}
 
 	void remove(int index1, int index2){
+		if (index1 >= dataCnt || index2 >= dataCnt || index1 == index2){
+			return;
+		}
+		if (index1 > index2){
+			int temp = index1;
+			index1 = index2;
+			index2 = temp;
+		}
+
 		for (int i = index1; i + abs(index2 - index1) <= leng; i++){
 			datas[i] = datas[i + abs(index2 - index1)];
 		}
