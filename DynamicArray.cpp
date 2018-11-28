@@ -16,7 +16,11 @@ public:
 			datas[i] = 0;
 		}
 	}
-
+	Data& operator[](unsigned int index){
+		if (index >= leng)
+			__debugbreak();
+		return datas[index];
+	}
 	void PushBack(int data){
 
 		if (dataCnt >= leng)
@@ -63,10 +67,6 @@ public:
 			std::cout << datas[i] << " ";
 		}
 		std::cout << std::endl;
-	}
-
-	Data GetAt(int index) {
-		return datas[index];
 	}
 
 	void Insert(int index, int data){
@@ -144,6 +144,6 @@ int main(){
 	arr.PrintArray();
 	arr.remove(1, 2);
 	arr.PrintArray();
-
-	std::cout << arr.GetAt(1) << std::endl;
+	arr[1] = 3;
+	std::cout << arr[5] << std::endl;
 }
